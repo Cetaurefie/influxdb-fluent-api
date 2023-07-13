@@ -3,5 +3,5 @@
 public interface IFluxQuery : IBuildableFluxQuery
 {
     IFluxQuery AppendClause(string clause);
-    ISortedFluxQuery Sort(bool isDescending = false, params string[] columns);
+    ISortedFluxQuery Sort(bool isDescending, params string[] columns);
 }

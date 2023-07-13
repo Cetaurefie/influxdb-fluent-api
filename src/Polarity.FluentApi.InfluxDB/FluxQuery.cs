@@ -33,7 +33,7 @@ internal class FluxQuery : IFluxQuery, ISortedFluxQuery
     }
 
     /// <inheritdoc />
-    public ISortedFluxQuery Sort(bool isDescending = false, params string[] columns)
+    public ISortedFluxQuery Sort(bool isDescending, params string[] columns)
     {
         string isDescendingString = isDescending.ToString().ToLowerInvariant();
 
