@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C224C833-FAA4-440D-9DD5-596240547809}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{D5D99293-EA93-4F08-B754-B64016A83DAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2852354E-B162-4225-B1BD-7AB19BE42472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polarity.FluentApi.InfluxDB", "src\Polarity.FluentApi.InfluxDB\Polarity.FluentApi.InfluxDB.csproj", "{7513DEBA-72F7-4EC5-BFBE-75D00643AB03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polarity.FluentApi.InfluxDB.Demo", "demo\Polarity.FluentApi.InfluxDB.Demo\Polarity.FluentApi.InfluxDB.Demo.csproj", "{DC5F0098-872F-4B1D-91EB-DE0A21429977}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7513DEBA-72F7-4EC5-BFBE-75D00643AB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7513DEBA-72F7-4EC5-BFBE-75D00643AB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7513DEBA-72F7-4EC5-BFBE-75D00643AB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7513DEBA-72F7-4EC5-BFBE-75D00643AB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC5F0098-872F-4B1D-91EB-DE0A21429977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC5F0098-872F-4B1D-91EB-DE0A21429977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5F0098-872F-4B1D-91EB-DE0A21429977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC5F0098-872F-4B1D-91EB-DE0A21429977}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7513DEBA-72F7-4EC5-BFBE-75D00643AB03} = {C224C833-FAA4-440D-9DD5-596240547809}
+		{DC5F0098-872F-4B1D-91EB-DE0A21429977} = {D5D99293-EA93-4F08-B754-B64016A83DAD}
+	EndGlobalSection
+EndGlobal
