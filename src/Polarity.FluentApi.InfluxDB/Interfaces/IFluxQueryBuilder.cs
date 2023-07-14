@@ -19,5 +19,5 @@ public interface IFluxQueryBuilder
     /// <param name="start">Inclusive query start timestamp. Automatically coverts to UTC. 0 if NULL</param>
     /// <param name="end">Inclusive query end timestamp. Automatically converts to UTC. <see cref="DateTime.UtcNow"/> if NULL</param>
     /// <returns></returns>
-    IFluxQuery CreateQuery(string bucket, DateTime? start, DateTime? end);
+    IFluxQuery CreateQuery(string bucket, DateTime? start = null, DateTime? end = null);
 }
