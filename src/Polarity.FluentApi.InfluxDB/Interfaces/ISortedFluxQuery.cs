@@ -1,5 +1,8 @@
 ﻿namespace Polarity.FluentApi.InfluxDB.Interfaces;
 
+/// <summary>
+/// Sorted Flux query
+/// </summary>
 public interface ISortedFluxQuery : IBuildableFluxQuery
 {
     /// <summary>

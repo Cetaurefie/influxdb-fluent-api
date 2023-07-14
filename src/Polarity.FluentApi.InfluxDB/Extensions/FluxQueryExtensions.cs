@@ -2,6 +2,9 @@
 
 namespace Polarity.FluentApi.InfluxDB.Extensions;
 
+/// <summary>
+/// Extensions methods for <see cref="IFluxQuery"/>
+/// </summary>
 public static class FluxQueryExtensions
 {
     /// <summary>

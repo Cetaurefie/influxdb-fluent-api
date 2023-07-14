@@ -3,6 +3,9 @@ using System;
 
 namespace Polarity.FluentApi.InfluxDB.Interfaces;
 
+/// <summary>
+/// Entry point to building a Flux query in a Fluent style
+/// </summary>
 public interface IFluxQueryBuilder
 {
     /// <summary>
