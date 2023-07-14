@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Polarity.FluentApi.InfluxDB.Interfaces;
@@ -27,6 +28,9 @@ internal class FluxQuery : IFluxQuery, ISortedFluxQuery
     /// <inheritdoc />
     public IFluxQuery AppendClause(string clause)
     {
+        if (string.IsNullOrWhiteSpace(clause))
+            throw new ArgumentNullException(nameof(clause), "Cannot append an empty Flux clause");
+
         _builder.AppendLine(clause);
 
         return this;
@@ -44,14 +48,18 @@ internal class FluxQuery : IFluxQuery, ISortedFluxQuery
             return this;
         }
 
-        string columnArgs = string.Join(", ", columns.Select(column => $"\"{column}\""));
+        IEnumerable<string> formattedColumns = columns
+            .Where(column => !string.IsNullOrWhiteSpace(column))
+            .Select(column => $"\"{column}\"");
+
+        string columnArgs = string.Join(", ", formattedColumns);
         AppendClause($"|> sort(columns: [{columnArgs}], desc: {isDescendingString})");
 
         return this;
     }
 
     /// <inheritdoc />
-    public IBuildableFluxQuery Limit(int limit)
+    public IBuildableFluxQuery Limit(uint limit)
     {
         AppendClause($"|> limit(n:{limit})");
 

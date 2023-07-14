@@ -5,11 +5,11 @@ namespace Polarity.FluentApi.InfluxDB;
 
 public class FluxQueryBuilder : IFluxQueryBuilder
 {
+    /// <inheritdoc />
     public IFluxQuery CreateQuery(string bucket, DateTime? start, DateTime? end)
     {
-        DateTime startTime = start ?? DateTime.MinValue;
         DateTime endTime = end ?? DateTime.UtcNow;
-        long unixStart = new DateTimeOffset(startTime).ToUnixTimeSeconds();
+        long unixStart = start.HasValue ? new DateTimeOffset(start.Value).ToUnixTimeSeconds() : 0;
         long unixEnd = new DateTimeOffset(endTime).ToUnixTimeSeconds();
 
         FluxQuery query = new();
