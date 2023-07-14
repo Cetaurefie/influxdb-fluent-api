@@ -17,7 +17,7 @@ string fluxQuery = queryBuilder.CreateQuery("realtime", end: DateTime.UtcNow.Add
 
 Console.WriteLine(fluxQuery);
 
-string otherFluxQuery = queryBuilder.CreateQuery("myOtherBucket")
+string otherFluxQuery = FluxQueryBuilder.Create("myOtherBucket")
     .Exclude("_value", 53)
     .Build();
 
