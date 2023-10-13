@@ -65,6 +65,17 @@ public static class FluxQueryExtensions
     }
 
     /// <summary>
+    /// Append a Flux selector to only return distinct values for a given <paramref name="column"/>.
+    /// </summary>
+    /// <param name="fluxQuery">The query to add a distinct selector</param>
+    /// <param name="column">The column to select</param>
+    /// <returns></returns>
+    public static IFluxQuery Distinct(this IFluxQuery fluxQuery, string column)
+    {
+        return fluxQuery.AppendClause($"|> distinct(column: \"{column}\"");
+    }
+
+    /// <summary>
     /// Append a Flux sort by the specified <paramref name="columns"/> in ascending order.
     /// <para>This is equivalent to the Flux <code>|> sort(columns: ["columns[0]", "columns[1]", ...], desc: false)</code></para>
     /// </summary>
@@ -87,4 +98,5 @@ public static class FluxQueryExtensions
     {
         return fluxQuery.Sort(true, columns);
     }
+
 }
