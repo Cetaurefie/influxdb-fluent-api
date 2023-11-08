@@ -1,4 +1,5 @@
-﻿using Polarity.FluentApi.InfluxDB.Interfaces;
+﻿using System;
+using Polarity.FluentApi.InfluxDB.Interfaces;
 
 namespace Polarity.FluentApi.InfluxDB.Extensions;
 
@@ -72,7 +73,60 @@ public static class FluxQueryExtensions
     /// <returns></returns>
     public static IFluxQuery Distinct(this IFluxQuery fluxQuery, string column)
     {
-        return fluxQuery.AppendClause($"|> distinct(column: \"{column}\"");
+        return fluxQuery.AppendClause($"|> distinct(column: \"{column}\")");
+    }
+
+    /// <summary>
+    /// Append an aggregate clause to calculate the mean value for a column grouped into windows of time.
+    /// </summary>
+    /// <param name="fluxQuery">The query to add a mean aggregation</param>
+    /// <param name="aggregateWindow">Time group window</param>
+    /// <param name="column">Column to aggregate</param>
+    /// <param name="shouldCreateEmpty">If empty results should be created for aggregate windows without data</param>
+    /// <returns></returns>
+    public static IFluxQuery Mean(this IFluxQuery fluxQuery, TimeSpan aggregateWindow, string column = "_value", bool shouldCreateEmpty = false)
+    {
+        string duration = aggregateWindow.ToFluxDuration();
+        string createEmpty = shouldCreateEmpty.ToString().ToLower();
+
+        return fluxQuery.AppendClause($"|> aggregateWindow(every: {duration}, fn: mean, column: \"{column}\", createEmpty: {createEmpty})");
+    }
+
+    /// <summary>
+    /// Append an aggregate clause to calculate the sum value for a column grouped into windows of time.
+    /// </summary>
+    /// <param name="fluxQuery">The query to add a mean aggregation</param>
+    /// <param name="aggregateWindow">Time group window</param>
+    /// <param name="column">Column to aggregate</param>
+    /// <param name="shouldCreateEmpty">If empty results should be created for aggregate windows without data</param>
+    /// <returns></returns>
+    public static IFluxQuery Sum(this IFluxQuery fluxQuery, TimeSpan aggregateWindow, string column = "_value", bool shouldCreateEmpty = false)
+    {
+        string duration = aggregateWindow.ToFluxDuration();
+        string createEmpty = shouldCreateEmpty.ToString().ToLower();
+
+        return fluxQuery.AppendClause($"|> aggregateWindow(every: {duration}, fn: sum, column: \"{column}\", createEmpty: {createEmpty})");
+    }
+
+    /// <summary>
+    /// Append an aggregate clause to calculate the mean value for a column grouped into windows of time.
+    /// </summary>
+    /// <param name="fluxQuery">The query to add a mean aggregation</param>
+    /// <param name="aggregateWindow">Time group window</param>
+    /// <param name="column">Column to aggregate</param>
+    /// <param name="shouldCreateEmpty">If empty results should be created for aggregate windows without data</param>
+    /// <returns></returns>
+    public static IFluxQuery Quantile(this IFluxQuery fluxQuery, TimeSpan aggregateWindow, float quantile, string column = "_value", bool shouldCreateEmpty = false)
+    {
+        if (quantile > 1f || quantile < 0f)
+            throw new ArgumentOutOfRangeException(nameof(quantile), "Quantile must be between 0f and 1f inclusive");
+
+        string duration = aggregateWindow.ToFluxDuration();
+        string createEmpty = shouldCreateEmpty.ToString().ToLower();
+        string quantileFunction = $"(column, tables=<-) => tables |> quantile(q: {quantile}, column: column)";
+        string aggregate = $"|> aggregateWindow(every: {duration}, column: \"{column}\", fn: {quantileFunction}, createEmpty: {createEmpty})";
+
+        return fluxQuery.AppendClause(aggregate);
     }
 
     /// <summary>

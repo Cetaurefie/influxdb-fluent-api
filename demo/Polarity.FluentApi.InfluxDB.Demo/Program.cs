@@ -11,6 +11,8 @@ string fluxQuery = queryBuilder.CreateQuery("realtime", end: DateTime.UtcNow.Add
     .Filter("r.DeviceId != 0 and r._value > 9 and r._value <= 53")
     .Include("_value", "9")
     .Include("DeviceId", 0)
+    .Distinct("DeviceId")
+    .Quantile(new TimeSpan(1, 7, 53, 16), 0.9f)
     .SortDescending()
     .Limit(10)
     .Build();
